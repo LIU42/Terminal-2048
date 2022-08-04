@@ -41,8 +41,10 @@ void MainGame::initGame()
 
 void MainGame::addNumber(int count = 1)
 {
-    Point addList[BLOCK_COUNT];
-    int addListLength = 0;
+    static Point addList[BLOCK_COUNT];
+    static int addListLength;
+
+    addListLength = 0;
     
     for (int i = 0; i < count; i++)
     {
@@ -241,7 +243,7 @@ void MainGame::displayTable()
 
 void MainGame::displayNumber()
 {
-    char numberText[TEXT_LENGTH];
+    static char numberText[TEXT_LENGTH];
 
     origin.x += NUMBER_INIT_X;
     origin.y += NUMBER_INIT_Y;

@@ -15,7 +15,7 @@ int main()
         game.gameover();
         game.events();
         game.display();
-        usleep(GAME_DELAY);
+        usleep(GAME_DELAY_USEC);
     }
     game.unsetWindow();
     return 0;

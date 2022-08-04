@@ -4,7 +4,7 @@
 #define TABLE_WIDTH 29
 #define TABLE_HEIGHT 17
 #define TABLE_LARGE 4
-#define GAME_DELAY 10000
+#define GAME_DELAY_USEC 10000
 
 #define BLOCK_COUNT 16
 #define BLOCK_WIDTH 7
