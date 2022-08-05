@@ -1,5 +1,5 @@
-#ifndef __TERMINAL2048_H__
-#define __TERMINAL2048_H__
+#ifndef __2048_H__
+#define __2048_H__
 
 #include <ncurses.h>
 #include <stdlib.h>
