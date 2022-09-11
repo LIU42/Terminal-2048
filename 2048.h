@@ -8,43 +8,43 @@
 
 #include "config.h"
 
-struct Point
+struct point
 {
     int x;
     int y;
 };
 
-class MainGame
+class main_game
 {
     public:
-        int tableData[TABLE_LARGE][TABLE_LARGE];
-        int screenWidth;
-        int screenHeight;
-        int keyCode;
+        int table_data[TABLE_LARGE][TABLE_LARGE];
+        int screen_width;
+        int screen_height;
+        int key_code;
         int status;
-        Point origin;
+        point origin;
 
     public:
-        void setWindow();
-        void unsetWindow();
-        void resizeWindow();
+        void set_window();
+        void unset_window();
+        void resize_window();
 
     public:
-        void initGame();
-        void addNumber(int);
+        void init_game();
+        void add_number(int);
         void gameover();
         void events();
-        void displayTable();
-        void displayNumber();
-        void displayInfo();
+        void display_table();
+        void display_number();
+        void display_info();
         void display();
     
     public:
-        void upAction();
-        void downAction();
-        void leftAction();
-        void rightAction();
+        void up_action();
+        void down_action();
+        void left_action();
+        void right_action();
 };
 
-extern MainGame game;
+extern main_game game;
 #endif

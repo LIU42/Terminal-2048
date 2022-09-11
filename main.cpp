@@ -1,22 +1,22 @@
 #include "2048.h"
 
-MainGame game;
+main_game game;
 
 int main()
 {
     srand((unsigned)time(NULL));
     
-    game.setWindow();
-    game.initGame();
+    game.set_window();
+    game.init_game();
 
     while (game.status != EXIT)
     {
-        game.resizeWindow();
+        game.resize_window();
         game.gameover();
         game.events();
         game.display();
         usleep(GAME_DELAY_USEC);
     }
-    game.unsetWindow();
+    game.unset_window();
     return 0;
 }
