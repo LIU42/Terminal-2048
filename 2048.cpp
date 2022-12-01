@@ -26,6 +26,11 @@ void main_game::resize_window()
     key_code = 0;
 }
 
+bool main_game::is_running()
+{
+    return status != EXIT;
+}
+
 void main_game::init_game()
 {
     for (int x = 0; x < TABLE_LARGE; x++)
@@ -44,8 +49,6 @@ void main_game::add_number(int count = 1)
     static point add_list[BLOCK_COUNT];
     static int add_list_length;
 
-    add_list_length = 0;
-    
     for (int i = 0; i < count; i++)
     {
         for (int x = 0; x < TABLE_LARGE; x++)
@@ -63,7 +66,10 @@ void main_game::add_number(int count = 1)
         if (add_list_length != 0)
         {
             int rand_index = rand() % add_list_length;
-            table_data[add_list[rand_index].x][add_list[rand_index].y] = 2;
+            int rand_x = add_list[rand_index].x;
+            int rand_y = add_list[rand_index].y;
+
+            table_data[rand_x][rand_y] = 2;
             add_list_length = 0;
         }
     }
