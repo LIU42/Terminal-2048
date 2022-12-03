@@ -228,7 +228,7 @@ void main_game::events()
                 case KEY_RIGHT: right_action(); break;
             }
         }
-        else if (status != EXIT && key_code == KEY_SPACE) { init_game(); }
+        if (status != EXIT && key_code == KEY_SPACE) { init_game(); }
     }
 }
 
