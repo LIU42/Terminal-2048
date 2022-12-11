@@ -7,8 +7,10 @@ include_directories(${CURSES_INCLUDE_DIR})
 add_executable(
     Terminal-2048
     main.cpp
-    2048.cpp
-    2048.h
+    game.cpp
+    table.cpp
+    game.h
+    table.h
 )
 
 target_link_libraries(Terminal-2048 ${CURSES_LIBRARY})
