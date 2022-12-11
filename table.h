@@ -23,7 +23,7 @@ class tables
 
     public:
         void init_data();
-        void add_number(int);
+        void add_number();
         void up_action();
         void down_action();
         void left_action();

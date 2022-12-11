@@ -35,7 +35,8 @@ void main_game::init_game()
 {
     status = PLAYING;
     table.init_data();
-    table.add_number(INIT_NUM_COUNT);
+    table.add_number();
+    table.add_number();
 }
 
 void main_game::gameover()

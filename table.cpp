@@ -16,34 +16,31 @@ void tables::init_data()
     }
 }
 
-void tables::add_number(int count = 1)
+void tables::add_number()
 {
     static point add_list[BLOCK_COUNT];
     static int add_list_length;
 
-    for (int i = 0; i < count; i++)
+    for (int x = 0; x < TABLE_LARGE; x++)
     {
-        for (int x = 0; x < TABLE_LARGE; x++)
+        for (int y = 0; y < TABLE_LARGE; y++)
         {
-            for (int y = 0; y < TABLE_LARGE; y++)
+            if (data[x][y] == 0)
             {
-                if (data[x][y] == 0)
-                {
-                    add_list[add_list_length].x = x;
-                    add_list[add_list_length].y = y;
-                    add_list_length += 1;
-                }
+                add_list[add_list_length].x = x;
+                add_list[add_list_length].y = y;
+                add_list_length += 1;
             }
         }
-        if (add_list_length != 0)
-        {
-            int rand_index = rand() % add_list_length;
-            int rand_x = add_list[rand_index].x;
-            int rand_y = add_list[rand_index].y;
+    }
+    if (add_list_length != 0)
+    {
+        int rand_index = rand() % add_list_length;
+        int rand_x = add_list[rand_index].x;
+        int rand_y = add_list[rand_index].y;
 
-            data[rand_x][rand_y] = 2;
-            add_list_length = 0;
-        }
+        data[rand_x][rand_y] = 2;
+        add_list_length = 0;
     }
 }
 

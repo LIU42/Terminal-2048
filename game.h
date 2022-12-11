@@ -23,7 +23,6 @@ class main_game
         static const int KEY_ESC = 27;
         static const int KEY_SPACE = 32;
         static const int TEXT_LENGTH = 30;
-        static const int INIT_NUM_COUNT = 2;
 
     public:
         static const int NUMBER_INIT_X = 1;
