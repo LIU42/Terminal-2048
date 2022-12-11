@@ -68,7 +68,6 @@ void tables::up_action()
             }
         }
     }
-    add_number();
 }
 
 void tables::down_action()
@@ -95,7 +94,6 @@ void tables::down_action()
             }
         }
     }
-    add_number();
 }
 
 void tables::left_action()
@@ -122,7 +120,6 @@ void tables::left_action()
             }
         }
     }
-    add_number();
 }
 
 void tables::right_action()
@@ -149,7 +146,6 @@ void tables::right_action()
             }
         }
     }
-    add_number();
 }
 
 bool tables::is_win()

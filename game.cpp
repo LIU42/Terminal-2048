@@ -55,12 +55,25 @@ void main_game::events()
 
         if (status == PLAYING)
         {
-            switch (key_code)
+            if (key_code == KEY_UP)
             {
-                case KEY_UP: table.up_action(); break;
-                case KEY_DOWN: table.down_action(); break;
-                case KEY_LEFT: table.left_action(); break;
-                case KEY_RIGHT: table.right_action(); break;
+                table.up_action();
+                table.add_number();
+            }
+            else if (key_code == KEY_DOWN)
+            {
+                table.down_action();
+                table.add_number();
+            }
+            else if (key_code == KEY_LEFT)
+            {
+                table.left_action();
+                table.add_number();
+            }
+            else if (key_code == KEY_RIGHT)
+            {
+                table.right_action();
+                table.add_number();
             }
         }
         if (status != EXIT && key_code == KEY_SPACE) { init_game(); }
