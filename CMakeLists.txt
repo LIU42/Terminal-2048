@@ -9,8 +9,6 @@ add_executable(
     main.cpp
     game.cpp
     table.cpp
-    game.h
-    table.h
 )
 
 target_link_libraries(Terminal-2048 ${CURSES_LIBRARY})
