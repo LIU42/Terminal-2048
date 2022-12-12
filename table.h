@@ -12,8 +12,18 @@ struct point
 class tables
 {
     public:
+        static const int TABLE_WIDTH = 29;
+        static const int TABLE_HEIGHT = 17;
         static const int TABLE_LARGE = 4;
+
+    public:
+        static const int BLOCK_WIDTH = 7;
+        static const int BLOCK_HEIGHT = 4;
         static const int BLOCK_COUNT = 16;
+
+    public:
+        static const int NUMBER_INIT_X = 1;
+        static const int NUMBER_INIT_Y = 2;
 
     private:
         int data[TABLE_LARGE][TABLE_LARGE];

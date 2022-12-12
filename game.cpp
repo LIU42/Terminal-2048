@@ -82,10 +82,10 @@ void main_game::events()
 
 void main_game::display_table()
 {
-    origin.x = (screen_width - TABLE_WIDTH) / 2;
-    origin.y = (screen_height - TABLE_HEIGHT) / 2;
+    origin.x = (screen_width - table.TABLE_WIDTH) / 2;
+    origin.y = (screen_height - table.TABLE_HEIGHT) / 2;
 
-    for (int line = 0; line < TABLE_HEIGHT; line++)
+    for (int line = 0; line < table.TABLE_HEIGHT; line++)
     {
         switch (line % 4)
         {
@@ -99,8 +99,8 @@ void main_game::display_number()
 {
     static char number_text[TEXT_LENGTH];
 
-    origin.x += NUMBER_INIT_X;
-    origin.y += NUMBER_INIT_Y;
+    origin.x += table.NUMBER_INIT_X;
+    origin.y += table.NUMBER_INIT_Y;
 
     for (int x = 0; x < table.TABLE_LARGE; x++)
     {
@@ -128,7 +128,7 @@ void main_game::display_number()
             {
                 sprintf(number_text, " ");
             }
-            mvaddstr(origin.y + y * BLOCK_HEIGHT, origin.x + x * BLOCK_WIDTH, number_text);
+            mvaddstr(origin.y + y * table.BLOCK_HEIGHT, origin.x + x * table.BLOCK_WIDTH, number_text);
         }
     }
 }
@@ -137,11 +137,11 @@ void main_game::display_info()
 {
     switch (status)
     {
-        case WIN:  mvaddstr(origin.y + TABLE_HEIGHT - INFO_MARGIN, origin.x, "You Win!"); break;
-        case LOSE: mvaddstr(origin.y + TABLE_HEIGHT - INFO_MARGIN, origin.x, "Gameover!"); break;
-        case EXIT: mvaddstr(origin.y + TABLE_HEIGHT - INFO_MARGIN, origin.x, "Exit."); break;
+        case WIN:  mvaddstr(origin.y + table.TABLE_HEIGHT - INFO_MARGIN, origin.x, "You Win!"); break;
+        case LOSE: mvaddstr(origin.y + table.TABLE_HEIGHT - INFO_MARGIN, origin.x, "Gameover!"); break;
+        case EXIT: mvaddstr(origin.y + table.TABLE_HEIGHT - INFO_MARGIN, origin.x, "Exit."); break;
     }
-    mvaddstr(origin.y - BLOCK_HEIGHT, origin.x, "Welcome to 2048 in Terminal!");
+    mvaddstr(origin.y - table.BLOCK_HEIGHT, origin.x, "Welcome to 2048 in Terminal!");
 }
 
 void main_game::display()
