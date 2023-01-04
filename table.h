@@ -3,13 +3,13 @@
 
 #include <stdlib.h>
 
-struct point
+struct Point
 {
     int x;
     int y;
 };
 
-class tables
+class Table
 {
     public:
         static const int TABLE_WIDTH = 29;

@@ -8,9 +8,9 @@
 
 #include "table.h"
 
-enum status_enum { PLAYING, LOSE, WIN, EXIT };
+enum Status { PLAYING, LOSE, WIN, EXIT };
 
-class main_game
+class MainGame
 {
     public:
         static const int DELAY_USEC = 10000;
@@ -20,9 +20,9 @@ class main_game
         static const int INFO_MARGIN = 1;
 
     private:
-        status_enum status;
-        tables table;
-        point origin;
+        Status status;
+        Table table;
+        Point origin;
 
     private:
         int screen_width;

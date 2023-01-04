@@ -2,7 +2,7 @@
 
 int main()
 {
-    main_game game;
+    MainGame game;
 
     srand((unsigned)time(NULL));
     

@@ -1,11 +1,11 @@
 #include "table.h"
 
-int tables::get_data(int x, int y)
+int Table::get_data(int x, int y)
 {
     return data[x][y];
 }
 
-void tables::init_data()
+void Table::init_data()
 {
     for (int x = 0; x < TABLE_LARGE; x++)
     {
@@ -16,9 +16,9 @@ void tables::init_data()
     }
 }
 
-void tables::add_number()
+void Table::add_number()
 {
-    static point add_list[BLOCK_COUNT];
+    static Point add_list[BLOCK_COUNT];
     static int add_list_length;
 
     for (int x = 0; x < TABLE_LARGE; x++)
@@ -44,7 +44,7 @@ void tables::add_number()
     }
 }
 
-void tables::up_action()
+void Table::up_action()
 {
     for (int x = 0; x < TABLE_LARGE; x++)
     {
@@ -70,7 +70,7 @@ void tables::up_action()
     }
 }
 
-void tables::down_action()
+void Table::down_action()
 {
     for (int x = 0; x < TABLE_LARGE; x++)
     {
@@ -96,7 +96,7 @@ void tables::down_action()
     }
 }
 
-void tables::left_action()
+void Table::left_action()
 {
     for (int y = 0; y < TABLE_LARGE; y++)
     {
@@ -122,7 +122,7 @@ void tables::left_action()
     }
 }
 
-void tables::right_action()
+void Table::right_action()
 {
     for (int y = 0; y < TABLE_LARGE; y++)
     {
@@ -148,7 +148,7 @@ void tables::right_action()
     }
 }
 
-bool tables::is_win()
+bool Table::is_win()
 {
     for (int x = 0; x < TABLE_LARGE; x++)
     {
@@ -163,7 +163,7 @@ bool tables::is_win()
     return false;
 }
 
-bool tables::is_lose()
+bool Table::is_lose()
 {
     for (int x = 0; x < TABLE_LARGE; x++)
     {

@@ -1,6 +1,6 @@
 #include "game.h"
 
-void main_game::set_window()
+void MainGame::set_window()
 {
     initscr();
     cbreak();
@@ -10,7 +10,7 @@ void main_game::set_window()
     nodelay(stdscr, true);
 }
 
-void main_game::unset_window()
+void MainGame::unset_window()
 {
     nocbreak();
     keypad(stdscr, true);
@@ -19,19 +19,19 @@ void main_game::unset_window()
     endwin();
 }
 
-void main_game::resize_window()
+void MainGame::resize_window()
 {
     screen_width = COLS;
     screen_height = LINES;
     key_code = 0;
 }
 
-bool main_game::is_running()
+bool MainGame::is_running()
 {
     return status != EXIT;
 }
 
-void main_game::init_game()
+void MainGame::init_game()
 {
     status = PLAYING;
     table.init_data();
@@ -39,13 +39,13 @@ void main_game::init_game()
     table.add_number();
 }
 
-void main_game::gameover()
+void MainGame::gameover()
 {
     if (table.is_lose()) { status = LOSE; }
     if (table.is_win()) { status = WIN; }
 }
 
-void main_game::events()
+void MainGame::events()
 {
     key_code = getch();
 
@@ -80,7 +80,7 @@ void main_game::events()
     }
 }
 
-void main_game::display_table()
+void MainGame::display_table()
 {
     origin.x = (screen_width - table.TABLE_WIDTH) / 2;
     origin.y = (screen_height - table.TABLE_HEIGHT) / 2;
@@ -95,7 +95,7 @@ void main_game::display_table()
     }
 }
 
-void main_game::display_number()
+void MainGame::display_number()
 {
     static char number_text[TEXT_LENGTH];
 
@@ -133,7 +133,7 @@ void main_game::display_number()
     }
 }
 
-void main_game::display_info()
+void MainGame::display_info()
 {
     switch (status)
     {
@@ -144,7 +144,7 @@ void main_game::display_info()
     mvaddstr(origin.y - table.BLOCK_HEIGHT, origin.x, "Welcome to 2048 in Terminal!");
 }
 
-void main_game::display()
+void MainGame::display()
 {
     erase();
     display_table();
