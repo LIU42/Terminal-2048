@@ -81,7 +81,7 @@ void Table::down_action()
                 if (data[x][y + 1] == 0)
                 {
                     data[x][y + 1] = data[x][y];
-                   data[x][y] = 0;
+                    data[x][y] = 0;
                     y += 1;
                 }
                 else if (data[x][y] == data[x][y + 1])
