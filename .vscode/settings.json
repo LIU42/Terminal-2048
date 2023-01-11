@@ -1,8 +1,0 @@
-{
-    "files.associations": {
-        "cmath": "cpp",
-        "limits": "cpp",
-        "*.tcc": "cpp",
-        "array": "cpp"
-    }
-}
