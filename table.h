@@ -34,10 +34,10 @@ class Table
     public:
         void init_data();
         void add_number();
-        void up_action();
-        void down_action();
-        void left_action();
-        void right_action();
+        void move_up();
+        void move_down();
+        void move_left();
+        void move_right();
 
     public:
         bool is_win();

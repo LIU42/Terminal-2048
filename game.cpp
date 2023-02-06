@@ -57,22 +57,22 @@ void MainGame::events()
         {
             if (key_code == KEY_UP)
             {
-                table.up_action();
+                table.move_up();
                 table.add_number();
             }
             else if (key_code == KEY_DOWN)
             {
-                table.down_action();
+                table.move_down();
                 table.add_number();
             }
             else if (key_code == KEY_LEFT)
             {
-                table.left_action();
+                table.move_left();
                 table.add_number();
             }
             else if (key_code == KEY_RIGHT)
             {
-                table.right_action();
+                table.move_right();
                 table.add_number();
             }
         }

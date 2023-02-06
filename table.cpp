@@ -44,7 +44,7 @@ void Table::add_number()
     }
 }
 
-void Table::up_action()
+void Table::move_up()
 {
     for (int x = 0; x < TABLE_LARGE; x++)
     {
@@ -70,7 +70,7 @@ void Table::up_action()
     }
 }
 
-void Table::down_action()
+void Table::move_down()
 {
     for (int x = 0; x < TABLE_LARGE; x++)
     {
@@ -96,7 +96,7 @@ void Table::down_action()
     }
 }
 
-void Table::left_action()
+void Table::move_left()
 {
     for (int y = 0; y < TABLE_LARGE; y++)
     {
@@ -122,7 +122,7 @@ void Table::left_action()
     }
 }
 
-void Table::right_action()
+void Table::move_right()
 {
     for (int y = 0; y < TABLE_LARGE; y++)
     {
