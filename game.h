@@ -12,7 +12,7 @@ enum Status { PLAYING, LOSE, WIN, EXIT };
 
 class MainGame
 {
-    public:
+    private:
         static const int DELAY_USEC = 10000;
         static const int KEY_ESC = 27;
         static const int KEY_SPACE = 32;
@@ -29,21 +29,27 @@ class MainGame
         int screen_height;
         int key_code;
 
-    public:
+    private:
         void set_window();
         void unset_window();
         void resize_window();
         void init_game();
-
-    public:
-        bool is_running();
         void gameover();
-        void events();
-        void display();
 
     private:
         void display_table();
         void display_number();
         void display_info();
+
+    public:
+        MainGame();
+        ~MainGame();
+
+    public:
+        bool is_running();
+        void update();
+        void events();
+        void display();
+        void delay();
 };
 #endif

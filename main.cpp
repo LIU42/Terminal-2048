@@ -4,19 +4,12 @@ int main()
 {
     MainGame game;
 
-    srand((unsigned)time(NULL));
-    
-    game.set_window();
-    game.init_game();
-
     while (game.is_running())
     {
-        game.resize_window();
-        game.gameover();
+        game.update();
         game.events();
         game.display();
-        usleep(game.DELAY_USEC);
+        game.delay();
     }
-    game.unset_window();
-    return 0;
+    return EXIT_SUCCESS;
 }

@@ -26,11 +26,6 @@ void MainGame::resize_window()
     key_code = 0;
 }
 
-bool MainGame::is_running()
-{
-    return status != EXIT;
-}
-
 void MainGame::init_game()
 {
     status = PLAYING;
@@ -43,41 +38,6 @@ void MainGame::gameover()
 {
     if (table.is_lose()) { status = LOSE; }
     if (table.is_win()) { status = WIN; }
-}
-
-void MainGame::events()
-{
-    key_code = getch();
-
-    if (key_code != 0)
-    {
-        if (key_code == KEY_ESC) { status = EXIT; }
-
-        if (status == PLAYING)
-        {
-            if (key_code == KEY_UP)
-            {
-                table.move_up();
-                table.add_number();
-            }
-            else if (key_code == KEY_DOWN)
-            {
-                table.move_down();
-                table.add_number();
-            }
-            else if (key_code == KEY_LEFT)
-            {
-                table.move_left();
-                table.add_number();
-            }
-            else if (key_code == KEY_RIGHT)
-            {
-                table.move_right();
-                table.add_number();
-            }
-        }
-        if (status != EXIT && key_code == KEY_SPACE) { init_game(); }
-    }
 }
 
 void MainGame::display_table()
@@ -144,6 +104,64 @@ void MainGame::display_info()
     mvaddstr(origin.y - table.BLOCK_HEIGHT, origin.x, "Welcome to 2048 in Terminal!");
 }
 
+MainGame::MainGame()
+{
+    srand((unsigned)time(NULL));
+    set_window();
+    init_game();
+}
+
+MainGame::~MainGame()
+{
+    unset_window();
+}
+
+bool MainGame::is_running()
+{
+    return status != EXIT;
+}
+
+void MainGame::update()
+{
+    resize_window();
+    gameover();
+}
+
+void MainGame::events()
+{
+    key_code = getch();
+
+    if (key_code != 0)
+    {
+        if (key_code == KEY_ESC) { status = EXIT; }
+
+        if (status == PLAYING)
+        {
+            if (key_code == KEY_UP)
+            {
+                table.move_up();
+                table.add_number();
+            }
+            else if (key_code == KEY_DOWN)
+            {
+                table.move_down();
+                table.add_number();
+            }
+            else if (key_code == KEY_LEFT)
+            {
+                table.move_left();
+                table.add_number();
+            }
+            else if (key_code == KEY_RIGHT)
+            {
+                table.move_right();
+                table.add_number();
+            }
+        }
+        if (status != EXIT && key_code == KEY_SPACE) { init_game(); }
+    }
+}
+
 void MainGame::display()
 {
     erase();
@@ -151,4 +169,9 @@ void MainGame::display()
     display_number();
     display_info();
     refresh();
+}
+
+void MainGame::delay()
+{
+    usleep(DELAY_USEC);
 }
