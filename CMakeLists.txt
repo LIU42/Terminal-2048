@@ -7,6 +7,5 @@ include_directories(${CURSES_INCLUDE_DIR})
 file(GLOB SOURCES_FILES
     ${PROJECT_SOURCE_DIR}/*.cpp
 )
-
 add_executable(Terminal-2048 ${SOURCES_FILES})
 target_link_libraries(Terminal-2048 ${CURSES_LIBRARY})
