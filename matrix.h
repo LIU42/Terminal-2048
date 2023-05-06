@@ -1,5 +1,5 @@
-#ifndef __TABLE_H__
-#define __TABLE_H__
+#ifndef __MATRIX_H__
+#define __MATRIX_H__
 
 #include <stdlib.h>
 
@@ -9,12 +9,12 @@ struct Point
     int y;
 };
 
-class Table
+class Matrix
 {
     public:
-        static const int TABLE_WIDTH = 29;
-        static const int TABLE_HEIGHT = 17;
-        static const int TABLE_LARGE = 4;
+        static const int MATRIX_WIDTH = 29;
+        static const int MATRIX_HEIGHT = 17;
+        static const int MATRIX_LARGE = 4;
 
     public:
         static const int BLOCK_WIDTH = 7;
@@ -26,13 +26,13 @@ class Table
         static const int NUMBER_INIT_Y = 2;
 
     private:
-        int data[TABLE_LARGE][TABLE_LARGE];
+        int numbers[MATRIX_LARGE][MATRIX_LARGE];
 
     public:
-        int get_data(int, int);
+        int get_number(int, int);
 
     public:
-        void init_data();
+        void init_numbers();
         void add_number();
         void move_up();
         void move_down();

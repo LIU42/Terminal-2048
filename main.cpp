@@ -1,4 +1,4 @@
-#include "game.h"
+#include "terminal.h"
 
 int main(int argc, char* argv[])
 {

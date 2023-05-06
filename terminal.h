@@ -1,12 +1,12 @@
-#ifndef __GAME_H__
-#define __GAME_H__
+#ifndef __TERMINAL_H__
+#define __TERMINAL_H__
 
 #include <ncurses.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <time.h>
 
-#include "table.h"
+#include "matrix.h"
 
 enum Status { PLAYING, LOSE, WIN, EXIT };
 
@@ -21,7 +21,7 @@ class MainGame
 
     private:
         Status status;
-        Table table;
+        Matrix matrix;
         Point origin;
 
     private:
@@ -37,7 +37,7 @@ class MainGame
         void gameover();
 
     private:
-        void display_table();
+        void display_border();
         void display_number();
         void display_info();
 

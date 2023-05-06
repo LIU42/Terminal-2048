@@ -1,4 +1,4 @@
-#include "game.h"
+#include "terminal.h"
 
 void MainGame::set_window()
 {
@@ -29,23 +29,23 @@ void MainGame::resize_window()
 void MainGame::init_game()
 {
     status = PLAYING;
-    table.init_data();
-    table.add_number();
-    table.add_number();
+    matrix.init_numbers();
+    matrix.add_number();
+    matrix.add_number();
 }
 
 void MainGame::gameover()
 {
-    if (table.is_lose()) { status = LOSE; }
-    if (table.is_win()) { status = WIN; }
+    if (matrix.is_lose()) { status = LOSE; }
+    if (matrix.is_win()) { status = WIN; }
 }
 
-void MainGame::display_table()
+void MainGame::display_border()
 {
-    origin.x = (screen_width - table.TABLE_WIDTH) / 2;
-    origin.y = (screen_height - table.TABLE_HEIGHT) / 2;
+    origin.x = (screen_width - matrix.MATRIX_WIDTH) / 2;
+    origin.y = (screen_height - matrix.MATRIX_HEIGHT) / 2;
 
-    for (int line = 0; line < table.TABLE_HEIGHT; line++)
+    for (int line = 0; line < matrix.MATRIX_HEIGHT; line++)
     {
         switch (line % 4)
         {
@@ -59,14 +59,14 @@ void MainGame::display_number()
 {
     static char number_text[TEXT_LENGTH];
 
-    origin.x += table.NUMBER_INIT_X;
-    origin.y += table.NUMBER_INIT_Y;
+    origin.x += matrix.NUMBER_INIT_X;
+    origin.y += matrix.NUMBER_INIT_Y;
 
-    for (int x = 0; x < table.TABLE_LARGE; x++)
+    for (int x = 0; x < matrix.MATRIX_LARGE; x++)
     {
-        for (int y = 0; y < table.TABLE_LARGE; y++)
+        for (int y = 0; y < matrix.MATRIX_LARGE; y++)
         {
-            int num = table.get_data(x, y);
+            int num = matrix.get_number(x, y);
 
             if (num > 1000)
             {
@@ -88,7 +88,7 @@ void MainGame::display_number()
             {
                 sprintf(number_text, " ");
             }
-            mvaddstr(origin.y + y * table.BLOCK_HEIGHT, origin.x + x * table.BLOCK_WIDTH, number_text);
+            mvaddstr(origin.y + y * matrix.BLOCK_HEIGHT, origin.x + x * matrix.BLOCK_WIDTH, number_text);
         }
     }
 }
@@ -97,11 +97,11 @@ void MainGame::display_info()
 {
     switch (status)
     {
-        case WIN:  mvaddstr(origin.y + table.TABLE_HEIGHT - INFO_MARGIN, origin.x, "You Win!"); break;
-        case LOSE: mvaddstr(origin.y + table.TABLE_HEIGHT - INFO_MARGIN, origin.x, "Gameover!"); break;
-        case EXIT: mvaddstr(origin.y + table.TABLE_HEIGHT - INFO_MARGIN, origin.x, "Exit."); break;
+        case WIN:  mvaddstr(origin.y + matrix.MATRIX_HEIGHT - INFO_MARGIN, origin.x, "You Win!"); break;
+        case LOSE: mvaddstr(origin.y + matrix.MATRIX_HEIGHT - INFO_MARGIN, origin.x, "Gameover!"); break;
+        case EXIT: mvaddstr(origin.y + matrix.MATRIX_HEIGHT - INFO_MARGIN, origin.x, "Exit."); break;
     }
-    mvaddstr(origin.y - table.BLOCK_HEIGHT, origin.x, "Welcome to 2048 in Terminal!");
+    mvaddstr(origin.y - matrix.BLOCK_HEIGHT, origin.x, "Welcome to 2048 in Terminal!");
 }
 
 MainGame::MainGame()
@@ -139,23 +139,23 @@ void MainGame::events()
         {
             if (key_code == KEY_UP)
             {
-                table.move_up();
-                table.add_number();
+                matrix.move_up();
+                matrix.add_number();
             }
             else if (key_code == KEY_DOWN)
             {
-                table.move_down();
-                table.add_number();
+                matrix.move_down();
+                matrix.add_number();
             }
             else if (key_code == KEY_LEFT)
             {
-                table.move_left();
-                table.add_number();
+                matrix.move_left();
+                matrix.add_number();
             }
             else if (key_code == KEY_RIGHT)
             {
-                table.move_right();
-                table.add_number();
+                matrix.move_right();
+                matrix.add_number();
             }
         }
         if (status != EXIT && key_code == KEY_SPACE) { init_game(); }
@@ -165,7 +165,7 @@ void MainGame::events()
 void MainGame::display()
 {
     erase();
-    display_table();
+    display_border();
     display_number();
     display_info();
     refresh();
