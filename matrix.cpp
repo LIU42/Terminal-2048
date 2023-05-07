@@ -1,11 +1,11 @@
 #include "matrix.h"
 
-int Matrix::get_number(int x, int y)
+int Matrix::getNumber(int x, int y)
 {
     return numbers[x][y];
 }
 
-void Matrix::init_numbers()
+void Matrix::initNumbers()
 {
     for (int x = 0; x < MATRIX_LARGE; x++)
     {
@@ -16,10 +16,10 @@ void Matrix::init_numbers()
     }
 }
 
-void Matrix::add_number()
+void Matrix::addNumber()
 {
-    static Point add_list[BLOCK_COUNT];
-    static int add_list_length;
+    Point availableList[BLOCK_COUNT];
+    int availableListLength = 0;
 
     for (int x = 0; x < MATRIX_LARGE; x++)
     {
@@ -27,42 +27,39 @@ void Matrix::add_number()
         {
             if (numbers[x][y] == 0)
             {
-                add_list[add_list_length].x = x;
-                add_list[add_list_length].y = y;
-                add_list_length += 1;
+                availableList[availableListLength].x = x;
+                availableList[availableListLength].y = y;
+                availableListLength += 1;
             }
         }
     }
-    if (add_list_length != 0)
+    if (availableListLength != 0)
     {
-        int rand_index = rand() % add_list_length;
-        int rand_x = add_list[rand_index].x;
-        int rand_y = add_list[rand_index].y;
+        int randIndex = rand() % availableListLength;
+        int randX = availableList[randIndex].x;
+        int randY = availableList[randIndex].y;
 
-        numbers[rand_x][rand_y] = 2;
-        add_list_length = 0;
+        numbers[randX][randY] = 2;
     }
 }
 
-void Matrix::move_up()
+void Matrix::moveUp()
 {
     for (int x = 0; x < MATRIX_LARGE; x++)
     {
         for (int y = 1; y < MATRIX_LARGE; y++)
         {
-            while (y > 0 && numbers[x][y] != 0)
+            for (int i = y; i > 0 && numbers[x][i] != 0; i--)
             {
-                if (numbers[x][y - 1] == 0)
+                if (numbers[x][i - 1] == 0)
                 {
-                    numbers[x][y - 1] = numbers[x][y];
-                    numbers[x][y] = 0;
-                    y -= 1;
+                    numbers[x][i - 1] = numbers[x][i];
+                    numbers[x][i] = 0;
                 }
-                else if (numbers[x][y] == numbers[x][y - 1])
+                else if (numbers[x][i] == numbers[x][i - 1])
                 {
-                    numbers[x][y - 1] *= 2;
-                    numbers[x][y] = 0;
-                    y -= 1;
+                    numbers[x][i - 1] *= 2;
+                    numbers[x][i] = 0;
                 }
                 else { break; }
             }
@@ -70,25 +67,23 @@ void Matrix::move_up()
     }
 }
 
-void Matrix::move_down()
+void Matrix::moveDown()
 {
     for (int x = 0; x < MATRIX_LARGE; x++)
     {
         for (int y = MATRIX_LARGE - 2; y >= 0; y--)
         {
-            while (y < MATRIX_LARGE - 1 && numbers[x][y] != 0)
+            for (int i = y; i < MATRIX_LARGE - 1 && numbers[x][i] != 0; i++)
             {
-                if (numbers[x][y + 1] == 0)
+                if (numbers[x][i + 1] == 0)
                 {
-                    numbers[x][y + 1] = numbers[x][y];
-                    numbers[x][y] = 0;
-                    y += 1;
+                    numbers[x][i + 1] = numbers[x][i];
+                    numbers[x][i] = 0;
                 }
-                else if (numbers[x][y] == numbers[x][y + 1])
+                else if (numbers[x][i] == numbers[x][i + 1])
                 {
-                    numbers[x][y + 1] *= 2;
-                    numbers[x][y] = 0;
-                    y += 1;
+                    numbers[x][i + 1] *= 2;
+                    numbers[x][i] = 0;
                 }
                 else { break; }
             }
@@ -96,25 +91,23 @@ void Matrix::move_down()
     }
 }
 
-void Matrix::move_left()
+void Matrix::moveLeft()
 {
     for (int y = 0; y < MATRIX_LARGE; y++)
     {
         for (int x = 1; x < MATRIX_LARGE; x++)
         {
-            while (x > 0 && numbers[x][y] != 0)
+            for (int i = x; i > 0 && numbers[i][y] != 0; i--)
             {
-                if (numbers[x - 1][y] == 0)
+                if (numbers[i - 1][y] == 0)
                 {
-                    numbers[x - 1][y] = numbers[x][y];
-                    numbers[x][y] = 0;
-                    x -= 1;
+                    numbers[i - 1][y] = numbers[i][y];
+                    numbers[i][y] = 0;
                 }
-                else if (numbers[x][y] == numbers[x - 1][y])
+                else if (numbers[i][y] == numbers[i - 1][y])
                 {
-                    numbers[x - 1][y] *= 2;
-                    numbers[x][y] = 0;
-                    x -= 1;
+                    numbers[i - 1][y] *= 2;
+                    numbers[i][y] = 0;
                 }
                 else { break; }
             }
@@ -122,25 +115,23 @@ void Matrix::move_left()
     }
 }
 
-void Matrix::move_right()
+void Matrix::moveRight()
 {
     for (int y = 0; y < MATRIX_LARGE; y++)
     {
         for (int x = MATRIX_LARGE - 2; x >= 0; x--)
         {
-            while (x < MATRIX_LARGE - 1 && numbers[x][y] != 0)
+            for (int i = x; i < MATRIX_LARGE - 1 && numbers[i][y] != 0; i++)
             {
-                if (numbers[x + 1][y] == 0)
+                if (numbers[i + 1][y] == 0)
                 {
-                    numbers[x + 1][y] = numbers[x][y];
-                    numbers[x][y] = 0;
-                    x += 1;
+                    numbers[i + 1][y] = numbers[i][y];
+                    numbers[i][y] = 0;
                 }
-                else if (numbers[x][y] == numbers[x + 1][y])
+                else if (numbers[i][y] == numbers[i + 1][y])
                 {
-                    numbers[x + 1][y] *= 2;
-                    numbers[x][y] = 0;
-                    x += 1;
+                    numbers[i + 1][y] *= 2;
+                    numbers[i][y] = 0;
                 }
                 else { break; }
             }
@@ -148,7 +139,7 @@ void Matrix::move_right()
     }
 }
 
-bool Matrix::is_win()
+bool Matrix::isWin()
 {
     for (int x = 0; x < MATRIX_LARGE; x++)
     {
@@ -163,20 +154,18 @@ bool Matrix::is_win()
     return false;
 }
 
-bool Matrix::is_lose()
+bool Matrix::isLose()
 {
     for (int x = 0; x < MATRIX_LARGE; x++)
     {
         for (int y = 0; y < MATRIX_LARGE; y++)
         {
-            if (numbers[x][y] != 0)
+            if (numbers[x][y] == 0)
             {
-                if (y > 0 && numbers[x][y] == numbers[x][y - 1]) { return false; }
-                if (x > 0 && numbers[x][y] == numbers[x - 1][y]) { return false; }
-                if (y < MATRIX_LARGE - 1 && numbers[x][y] == numbers[x][y + 1]) { return false; }
-                if (x < MATRIX_LARGE - 1 && numbers[x][y] == numbers[x + 1][y]) { return false; }
+                return false;
             }
-            else { return false; }
+            if (y + 1 < MATRIX_LARGE && numbers[x][y] == numbers[x][y + 1]) { return false; }
+            if (x + 1 < MATRIX_LARGE && numbers[x][y] == numbers[x + 1][y]) { return false; }
         }
     }
     return true;

@@ -1,6 +1,6 @@
 #include "terminal.h"
 
-void MainGame::set_window()
+void MainGame::setWindow()
 {
     initscr();
     cbreak();
@@ -10,7 +10,7 @@ void MainGame::set_window()
     nodelay(stdscr, true);
 }
 
-void MainGame::unset_window()
+void MainGame::unsetWindow()
 {
     nocbreak();
     keypad(stdscr, true);
@@ -19,33 +19,33 @@ void MainGame::unset_window()
     endwin();
 }
 
-void MainGame::resize_window()
+void MainGame::resizeWindow()
 {
-    screen_width = COLS;
-    screen_height = LINES;
-    key_code = 0;
+    screenWidth = COLS;
+    screenHeight = LINES;
+    keyCode = 0;
 }
 
-void MainGame::init_game()
+void MainGame::initGame()
 {
     status = PLAYING;
-    matrix.init_numbers();
-    matrix.add_number();
-    matrix.add_number();
+    matrix.initNumbers();
+    matrix.addNumber();
+    matrix.addNumber();
 }
 
 void MainGame::gameover()
 {
-    if (matrix.is_lose()) { status = LOSE; }
-    if (matrix.is_win()) { status = WIN; }
+    if (matrix.isLose()) { status = LOSE; }
+    if (matrix.isWin()) { status = WIN; }
 }
 
-void MainGame::display_border()
+void MainGame::displayBorder()
 {
-    origin.x = (screen_width - matrix.MATRIX_WIDTH) / 2;
-    origin.y = (screen_height - matrix.MATRIX_HEIGHT) / 2;
+    origin.x = (screenWidth - Matrix::MATRIX_WIDTH) / 2;
+    origin.y = (screenHeight - Matrix::MATRIX_HEIGHT) / 2;
 
-    for (int line = 0; line < matrix.MATRIX_HEIGHT; line++)
+    for (int line = 0; line < Matrix::MATRIX_HEIGHT; line++)
     {
         switch (line % 4)
         {
@@ -55,119 +55,110 @@ void MainGame::display_border()
     }
 }
 
-void MainGame::display_number()
+void MainGame::displayNumber()
 {
-    static char number_text[TEXT_LENGTH];
+    static char numberText[TEXT_LENGTH];
 
-    origin.x += matrix.NUMBER_INIT_X;
-    origin.y += matrix.NUMBER_INIT_Y;
+    origin.x += Matrix::NUMBER_INIT_X;
+    origin.y += Matrix::NUMBER_INIT_Y;
 
-    for (int x = 0; x < matrix.MATRIX_LARGE; x++)
+    for (int x = 0; x < Matrix::MATRIX_LARGE; x++)
     {
-        for (int y = 0; y < matrix.MATRIX_LARGE; y++)
+        for (int y = 0; y < Matrix::MATRIX_LARGE; y++)
         {
-            int num = matrix.get_number(x, y);
+            int num = matrix.getNumber(x, y);
+            int length = 0;
 
-            if (num > 1000)
+            while (num > 0)
             {
-                sprintf(number_text, " %d ", num);
+                num /= 10;
+                length += 1;
             }
-            else if (num > 100)
+            switch (length)
             {
-                sprintf(number_text, "  %d ", num);
+                case 4: sprintf(numberText, " %d ", matrix.getNumber(x, y)); break;
+                case 3: sprintf(numberText, "  %d ", matrix.getNumber(x, y)); break;
+                case 2: sprintf(numberText, "  %d  ", matrix.getNumber(x, y)); break;
+                case 1: sprintf(numberText, "   %d  ", matrix.getNumber(x, y)); break;
+                case 0: sprintf(numberText, " "); break;
             }
-            else if (num > 10)
-            {
-                sprintf(number_text, "  %d  ", num);
-            }
-            else if (num > 1)
-            {
-                sprintf(number_text, "   %d  ", num);
-            }
-            else
-            {
-                sprintf(number_text, " ");
-            }
-            mvaddstr(origin.y + y * matrix.BLOCK_HEIGHT, origin.x + x * matrix.BLOCK_WIDTH, number_text);
+            mvaddstr(origin.y + y * Matrix::BLOCK_HEIGHT, origin.x + x * Matrix::BLOCK_WIDTH, numberText);
         }
     }
 }
 
-void MainGame::display_info()
+void MainGame::displayInfo()
 {
     switch (status)
     {
-        case WIN:  mvaddstr(origin.y + matrix.MATRIX_HEIGHT - INFO_MARGIN, origin.x, "You Win!"); break;
-        case LOSE: mvaddstr(origin.y + matrix.MATRIX_HEIGHT - INFO_MARGIN, origin.x, "Gameover!"); break;
-        case EXIT: mvaddstr(origin.y + matrix.MATRIX_HEIGHT - INFO_MARGIN, origin.x, "Exit."); break;
+        case WIN:  mvaddstr(origin.y + Matrix::MATRIX_HEIGHT - INFO_MARGIN, origin.x, "You Win!"); break;
+        case LOSE: mvaddstr(origin.y + Matrix::MATRIX_HEIGHT - INFO_MARGIN, origin.x, "Gameover!"); break;
+        case EXIT: mvaddstr(origin.y + Matrix::MATRIX_HEIGHT - INFO_MARGIN, origin.x, "Exit."); break;
     }
-    mvaddstr(origin.y - matrix.BLOCK_HEIGHT, origin.x, "Welcome to 2048 in Terminal!");
+    mvaddstr(origin.y - Matrix::BLOCK_HEIGHT, origin.x, "Welcome to 2048 in Terminal!");
 }
 
 MainGame::MainGame()
 {
     srand((unsigned)time(NULL));
-    set_window();
-    init_game();
+    setWindow();
+    initGame();
 }
 
 MainGame::~MainGame()
 {
-    unset_window();
+    unsetWindow();
 }
 
-bool MainGame::is_running()
+bool MainGame::isRunning()
 {
     return status != EXIT;
 }
 
 void MainGame::update()
 {
-    resize_window();
+    resizeWindow();
     gameover();
 }
 
 void MainGame::events()
 {
-    key_code = getch();
+    keyCode = getch();
 
-    if (key_code != 0)
+    if (keyCode == KEY_ESC) { status = EXIT; }
+
+    if (status == PLAYING)
     {
-        if (key_code == KEY_ESC) { status = EXIT; }
-
-        if (status == PLAYING)
+        if (keyCode == KEY_UP)
         {
-            if (key_code == KEY_UP)
-            {
-                matrix.move_up();
-                matrix.add_number();
-            }
-            else if (key_code == KEY_DOWN)
-            {
-                matrix.move_down();
-                matrix.add_number();
-            }
-            else if (key_code == KEY_LEFT)
-            {
-                matrix.move_left();
-                matrix.add_number();
-            }
-            else if (key_code == KEY_RIGHT)
-            {
-                matrix.move_right();
-                matrix.add_number();
-            }
+            matrix.moveUp();
+            matrix.addNumber();
         }
-        if (status != EXIT && key_code == KEY_SPACE) { init_game(); }
+        else if (keyCode == KEY_DOWN)
+        {
+            matrix.moveDown();
+            matrix.addNumber();
+        }
+        else if (keyCode == KEY_LEFT)
+        {
+            matrix.moveLeft();
+            matrix.addNumber();
+        }
+        else if (keyCode == KEY_RIGHT)
+        {
+            matrix.moveRight();
+            matrix.addNumber();
+        }
     }
+    if (status != EXIT && keyCode == KEY_SPACE) { initGame(); }
 }
 
 void MainGame::display()
 {
     erase();
-    display_border();
-    display_number();
-    display_info();
+    displayBorder();
+    displayNumber();
+    displayInfo();
     refresh();
 }
 

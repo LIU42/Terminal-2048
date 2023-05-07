@@ -25,28 +25,28 @@ class MainGame
         Point origin;
 
     private:
-        int screen_width;
-        int screen_height;
-        int key_code;
+        int screenWidth;
+        int screenHeight;
+        int keyCode;
 
     private:
-        void set_window();
-        void unset_window();
-        void resize_window();
-        void init_game();
+        void setWindow();
+        void unsetWindow();
+        void resizeWindow();
+        void initGame();
         void gameover();
 
     private:
-        void display_border();
-        void display_number();
-        void display_info();
+        void displayBorder();
+        void displayNumber();
+        void displayInfo();
 
     public:
         MainGame();
         ~MainGame();
 
     public:
-        bool is_running();
+        bool isRunning();
         void update();
         void events();
         void display();

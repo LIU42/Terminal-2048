@@ -29,18 +29,18 @@ class Matrix
         int numbers[MATRIX_LARGE][MATRIX_LARGE];
 
     public:
-        int get_number(int, int);
+        int getNumber(int, int);
 
     public:
-        void init_numbers();
-        void add_number();
-        void move_up();
-        void move_down();
-        void move_left();
-        void move_right();
+        void initNumbers();
+        void addNumber();
+        void moveUp();
+        void moveDown();
+        void moveLeft();
+        void moveRight();
 
     public:
-        bool is_win();
-        bool is_lose();
+        bool isWin();
+        bool isLose();
 };
 #endif

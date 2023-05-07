@@ -4,7 +4,7 @@ int main(int argc, char* argv[])
 {
     MainGame game;
 
-    while (game.is_running())
+    while (game.isRunning())
     {
         game.update();
         game.events();
