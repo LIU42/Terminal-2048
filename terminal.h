@@ -22,17 +22,16 @@ class MainGame
     private:
         Status status;
         Matrix matrix;
-        Point origin;
+        Point originPoint;
 
     private:
         int screenWidth;
         int screenHeight;
-        int keyCode;
 
     private:
-        void setWindow();
-        void unsetWindow();
-        void resizeWindow();
+        void setCurses();
+        void unsetCurses();
+        void resizeTerminal();
         void initGame();
         void gameover();
 
