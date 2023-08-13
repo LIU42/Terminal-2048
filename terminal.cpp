@@ -27,16 +27,16 @@ void MainGame::resizeTerminal()
 
 void MainGame::initGame()
 {
-    status = PLAYING;
-    matrix.initNumbers();
+    status = STATUS_PLAYING;
+    matrix.initMatrix();
     matrix.addNumber();
     matrix.addNumber();
 }
 
 void MainGame::gameover()
 {
-    if (matrix.isLose()) { status = LOSE; }
-    if (matrix.isWin()) { status = WIN; }
+    if (matrix.isFailure()) { status = STATUS_FAILURE; }
+    if (matrix.isSuccess()) { status = STATUS_SUCCESS; }
 }
 
 void MainGame::displayBorder()
@@ -96,9 +96,9 @@ void MainGame::displayInfo()
 {
     switch (status)
     {
-        case WIN:  mvaddstr(originPoint.y + Matrix::MATRIX_HEIGHT - INFO_MARGIN, originPoint.x, "You Win!"); break;
-        case LOSE: mvaddstr(originPoint.y + Matrix::MATRIX_HEIGHT - INFO_MARGIN, originPoint.x, "Gameover!"); break;
-        case EXIT: mvaddstr(originPoint.y + Matrix::MATRIX_HEIGHT - INFO_MARGIN, originPoint.x, "Exit."); break;
+        case STATUS_SUCCESS:  mvaddstr(originPoint.y + Matrix::MATRIX_HEIGHT - INFO_MARGIN, originPoint.x, "You Win!"); break;
+        case STATUS_FAILURE: mvaddstr(originPoint.y + Matrix::MATRIX_HEIGHT - INFO_MARGIN, originPoint.x, "Gameover!"); break;
+        case STATUS_EXIT: mvaddstr(originPoint.y + Matrix::MATRIX_HEIGHT - INFO_MARGIN, originPoint.x, "Exit."); break;
     }
     mvaddstr(originPoint.y - Matrix::BLOCK_HEIGHT, originPoint.x, "Welcome to 2048 in Terminal!");
 }
@@ -117,7 +117,7 @@ MainGame::~MainGame()
 
 bool MainGame::isRunning()
 {
-    return status != EXIT;
+    return status != STATUS_EXIT;
 }
 
 void MainGame::update()
@@ -132,13 +132,13 @@ void MainGame::events()
 
     if (keyCode == KEY_ESC)
     {
-        status = EXIT;
+        status = STATUS_EXIT;
     }
-    if (status != EXIT && keyCode == KEY_SPACE)
+    if (status != STATUS_EXIT && keyCode == KEY_SPACE)
     {
         initGame();
     }
-    if (status == PLAYING)
+    if (status == STATUS_PLAYING)
     {
         if (keyCode == KEY_UP)
         {

@@ -2,6 +2,9 @@
 #define __MATRIX_H__
 
 #include <stdlib.h>
+#include <vector>
+
+using namespace std;
 
 struct Point
 {
@@ -26,13 +29,13 @@ class Matrix
         static const int NUMBER_INIT_Y = 2;
 
     private:
-        int numbers[MATRIX_LARGE][MATRIX_LARGE];
+        int numberMatrix[MATRIX_LARGE][MATRIX_LARGE];
 
     public:
         int getNumber(int, int);
 
     public:
-        void initNumbers();
+        void initMatrix();
         void addNumber();
         void moveUp();
         void moveDown();
@@ -40,7 +43,7 @@ class Matrix
         void moveRight();
 
     public:
-        bool isWin();
-        bool isLose();
+        bool isSuccess();
+        bool isFailure();
 };
 #endif

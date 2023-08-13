@@ -8,7 +8,13 @@
 
 #include "matrix.h"
 
-enum Status { PLAYING, LOSE, WIN, EXIT };
+enum GameStatus
+{
+    STATUS_PLAYING,
+    STATUS_FAILURE,
+    STATUS_SUCCESS,
+    STATUS_EXIT
+};
 
 class MainGame
 {
@@ -20,7 +26,7 @@ class MainGame
         static const int INFO_MARGIN = 1;
 
     private:
-        Status status;
+        GameStatus status;
         Matrix matrix;
         Point originPoint;
 

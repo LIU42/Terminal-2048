@@ -2,44 +2,41 @@
 
 int Matrix::getNumber(int x, int y)
 {
-    return numbers[x][y];
+    return numberMatrix[x][y];
 }
 
-void Matrix::initNumbers()
+void Matrix::initMatrix()
 {
     for (int x = 0; x < MATRIX_LARGE; x++)
     {
         for (int y = 0; y < MATRIX_LARGE; y++)
         {
-            numbers[x][y] = 0;
+            numberMatrix[x][y] = 0;
         }
     }
 }
 
 void Matrix::addNumber()
 {
-    Point availableList[BLOCK_COUNT];
-    int availableListLength = 0;
+    vector<Point> availableList;
 
     for (int x = 0; x < MATRIX_LARGE; x++)
     {
         for (int y = 0; y < MATRIX_LARGE; y++)
         {
-            if (numbers[x][y] == 0)
+            if (numberMatrix[x][y] == 0)
             {
-                availableList[availableListLength].x = x;
-                availableList[availableListLength].y = y;
-                availableListLength += 1;
+                availableList.push_back({ x, y });
             }
         }
     }
-    if (availableListLength != 0)
+    if (!availableList.empty())
     {
-        int randIndex = rand() % availableListLength;
+        int randIndex = rand() % availableList.size();
         int randX = availableList[randIndex].x;
         int randY = availableList[randIndex].y;
 
-        numbers[randX][randY] = 2;
+        numberMatrix[randX][randY] = 2;
     }
 }
 
@@ -49,17 +46,17 @@ void Matrix::moveUp()
     {
         for (int y = 1; y < MATRIX_LARGE; y++)
         {
-            for (int i = y; i > 0 && numbers[x][i] != 0; i--)
+            for (int i = y; i > 0 && numberMatrix[x][i] != 0; i--)
             {
-                if (numbers[x][i - 1] == 0)
+                if (numberMatrix[x][i - 1] == 0)
                 {
-                    numbers[x][i - 1] = numbers[x][i];
-                    numbers[x][i] = 0;
+                    numberMatrix[x][i - 1] = numberMatrix[x][i];
+                    numberMatrix[x][i] = 0;
                 }
-                else if (numbers[x][i] == numbers[x][i - 1])
+                else if (numberMatrix[x][i] == numberMatrix[x][i - 1])
                 {
-                    numbers[x][i - 1] *= 2;
-                    numbers[x][i] = 0;
+                    numberMatrix[x][i - 1] *= 2;
+                    numberMatrix[x][i] = 0;
                 }
                 else { break; }
             }
@@ -73,17 +70,17 @@ void Matrix::moveDown()
     {
         for (int y = MATRIX_LARGE - 2; y >= 0; y--)
         {
-            for (int i = y; i < MATRIX_LARGE - 1 && numbers[x][i] != 0; i++)
+            for (int i = y; i < MATRIX_LARGE - 1 && numberMatrix[x][i] != 0; i++)
             {
-                if (numbers[x][i + 1] == 0)
+                if (numberMatrix[x][i + 1] == 0)
                 {
-                    numbers[x][i + 1] = numbers[x][i];
-                    numbers[x][i] = 0;
+                    numberMatrix[x][i + 1] = numberMatrix[x][i];
+                    numberMatrix[x][i] = 0;
                 }
-                else if (numbers[x][i] == numbers[x][i + 1])
+                else if (numberMatrix[x][i] == numberMatrix[x][i + 1])
                 {
-                    numbers[x][i + 1] *= 2;
-                    numbers[x][i] = 0;
+                    numberMatrix[x][i + 1] *= 2;
+                    numberMatrix[x][i] = 0;
                 }
                 else { break; }
             }
@@ -97,17 +94,17 @@ void Matrix::moveLeft()
     {
         for (int x = 1; x < MATRIX_LARGE; x++)
         {
-            for (int i = x; i > 0 && numbers[i][y] != 0; i--)
+            for (int i = x; i > 0 && numberMatrix[i][y] != 0; i--)
             {
-                if (numbers[i - 1][y] == 0)
+                if (numberMatrix[i - 1][y] == 0)
                 {
-                    numbers[i - 1][y] = numbers[i][y];
-                    numbers[i][y] = 0;
+                    numberMatrix[i - 1][y] = numberMatrix[i][y];
+                    numberMatrix[i][y] = 0;
                 }
-                else if (numbers[i][y] == numbers[i - 1][y])
+                else if (numberMatrix[i][y] == numberMatrix[i - 1][y])
                 {
-                    numbers[i - 1][y] *= 2;
-                    numbers[i][y] = 0;
+                    numberMatrix[i - 1][y] *= 2;
+                    numberMatrix[i][y] = 0;
                 }
                 else { break; }
             }
@@ -121,17 +118,17 @@ void Matrix::moveRight()
     {
         for (int x = MATRIX_LARGE - 2; x >= 0; x--)
         {
-            for (int i = x; i < MATRIX_LARGE - 1 && numbers[i][y] != 0; i++)
+            for (int i = x; i < MATRIX_LARGE - 1 && numberMatrix[i][y] != 0; i++)
             {
-                if (numbers[i + 1][y] == 0)
+                if (numberMatrix[i + 1][y] == 0)
                 {
-                    numbers[i + 1][y] = numbers[i][y];
-                    numbers[i][y] = 0;
+                    numberMatrix[i + 1][y] = numberMatrix[i][y];
+                    numberMatrix[i][y] = 0;
                 }
-                else if (numbers[i][y] == numbers[i + 1][y])
+                else if (numberMatrix[i][y] == numberMatrix[i + 1][y])
                 {
-                    numbers[i + 1][y] *= 2;
-                    numbers[i][y] = 0;
+                    numberMatrix[i + 1][y] *= 2;
+                    numberMatrix[i][y] = 0;
                 }
                 else { break; }
             }
@@ -139,13 +136,13 @@ void Matrix::moveRight()
     }
 }
 
-bool Matrix::isWin()
+bool Matrix::isSuccess()
 {
     for (int x = 0; x < MATRIX_LARGE; x++)
     {
         for (int y = 0; y < MATRIX_LARGE; y++)
         {
-            if (numbers[x][y] == 2048)
+            if (numberMatrix[x][y] == 2048)
             {
                 return true;
             }
@@ -154,18 +151,18 @@ bool Matrix::isWin()
     return false;
 }
 
-bool Matrix::isLose()
+bool Matrix::isFailure()
 {
     for (int x = 0; x < MATRIX_LARGE; x++)
     {
         for (int y = 0; y < MATRIX_LARGE; y++)
         {
-            if (numbers[x][y] == 0)
+            if (numberMatrix[x][y] == 0)
             {
                 return false;
             }
-            if (y + 1 < MATRIX_LARGE && numbers[x][y] == numbers[x][y + 1]) { return false; }
-            if (x + 1 < MATRIX_LARGE && numbers[x][y] == numbers[x + 1][y]) { return false; }
+            if (y + 1 < MATRIX_LARGE && numberMatrix[x][y] == numberMatrix[x][y + 1]) { return false; }
+            if (x + 1 < MATRIX_LARGE && numberMatrix[x][y] == numberMatrix[x + 1][y]) { return false; }
         }
     }
     return true;
