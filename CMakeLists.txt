@@ -4,8 +4,5 @@ project(Terminal-2048 VERSION 0.1.0)
 find_package(Curses REQUIRED)
 include_directories(${CURSES_INCLUDE_DIR})
 
-file(GLOB SOURCES_FILES
-    ${PROJECT_SOURCE_DIR}/*.cpp
-)
-add_executable(Terminal-2048 ${SOURCES_FILES})
+add_executable(Terminal-2048 main.cpp window.cpp matrix.cpp)
 target_link_libraries(Terminal-2048 ${CURSES_LIBRARY})

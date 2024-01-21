@@ -2,48 +2,53 @@
 #define __MATRIX_H__
 
 #include <stdlib.h>
+#include <memory.h>
 #include <vector>
 
 using namespace std;
 
-struct Point
+class point
 {
-    int x;
-    int y;
+    public:
+        int x;
+        int y;
+
+    public:
+        point(int x, int y);
 };
 
-class Matrix
+class game_matrix
 {
     public:
-        static const int MATRIX_WIDTH = 29;
-        static const int MATRIX_HEIGHT = 17;
-        static const int MATRIX_LARGE = 4;
+        static constexpr int MATRIX_WIDTH = 29;
+        static constexpr int MATRIX_HEIGHT = 17;
+        static constexpr int MATRIX_LARGE = 4;
 
     public:
-        static const int BLOCK_WIDTH = 7;
-        static const int BLOCK_HEIGHT = 4;
-        static const int BLOCK_COUNT = 16;
+        static constexpr int BLOCK_WIDTH = 7;
+        static constexpr int BLOCK_HEIGHT = 4;
+        static constexpr int BLOCK_COUNT = 16;
 
     public:
-        static const int NUMBER_INIT_X = 1;
-        static const int NUMBER_INIT_Y = 2;
+        static constexpr int NUMBER_INIT_X = 1;
+        static constexpr int NUMBER_INIT_Y = 2;
 
     private:
-        int numberMatrix[MATRIX_LARGE][MATRIX_LARGE];
+        int number_matrix[MATRIX_LARGE][MATRIX_LARGE];
 
     public:
-        int getNumber(int, int);
+        int get_number(int x, int y);
 
     public:
-        void initMatrix();
-        void addNumber();
-        void moveUp();
-        void moveDown();
-        void moveLeft();
-        void moveRight();
+        void init_matrix();
+        void add_number();
+        void transform_up();
+        void transform_down();
+        void transform_left();
+        void transform_right();
 
     public:
-        bool isSuccess();
-        bool isFailure();
+        bool is_success();
+        bool is_failure();
 };
 #endif

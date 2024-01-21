@@ -1,148 +1,155 @@
 #include "matrix.h"
 
-int Matrix::getNumber(int x, int y)
+point::point(int x, int y)
 {
-    return numberMatrix[x][y];
+    this->x = x;
+    this->y = y;
 }
 
-void Matrix::initMatrix()
+int game_matrix::get_number(int x, int y)
 {
+    return number_matrix[x][y];
+}
+
+void game_matrix::init_matrix()
+{
+    memset(number_matrix, 0, sizeof(number_matrix));
+}
+
+void game_matrix::add_number()
+{
+    vector<point> available_points;
+
     for (int x = 0; x < MATRIX_LARGE; x++)
     {
         for (int y = 0; y < MATRIX_LARGE; y++)
         {
-            numberMatrix[x][y] = 0;
-        }
-    }
-}
-
-void Matrix::addNumber()
-{
-    vector<Point> availableList;
-
-    for (int x = 0; x < MATRIX_LARGE; x++)
-    {
-        for (int y = 0; y < MATRIX_LARGE; y++)
-        {
-            if (numberMatrix[x][y] == 0)
+            if (number_matrix[x][y] == 0)
             {
-                availableList.push_back({ x, y });
+                available_points.emplace_back(point(x, y));
             }
         }
     }
-    if (!availableList.empty())
+    if (!available_points.empty())
     {
-        int randIndex = rand() % availableList.size();
-        int randX = availableList[randIndex].x;
-        int randY = availableList[randIndex].y;
-
-        numberMatrix[randX][randY] = 2;
+        int random_index = rand() % available_points.size();
+        int rand_x = available_points[random_index].x;
+        int rand_y = available_points[random_index].y;
+        number_matrix[rand_x][rand_y] = 2;
     }
 }
 
-void Matrix::moveUp()
+void game_matrix::transform_up()
 {
     for (int x = 0; x < MATRIX_LARGE; x++)
     {
         for (int y = 1; y < MATRIX_LARGE; y++)
         {
-            for (int i = y; i > 0 && numberMatrix[x][i] != 0; i--)
+            for (int i = y; i > 0 && number_matrix[x][i] != 0; i--)
             {
-                if (numberMatrix[x][i - 1] == 0)
+                if (number_matrix[x][i - 1] == 0)
                 {
-                    numberMatrix[x][i - 1] = numberMatrix[x][i];
-                    numberMatrix[x][i] = 0;
+                    number_matrix[x][i - 1] = number_matrix[x][i];
+                    number_matrix[x][i] = 0;
+                    continue;
                 }
-                else if (numberMatrix[x][i] == numberMatrix[x][i - 1])
+                if (number_matrix[x][i] == number_matrix[x][i - 1])
                 {
-                    numberMatrix[x][i - 1] *= 2;
-                    numberMatrix[x][i] = 0;
+                    number_matrix[x][i - 1] *= 2;
+                    number_matrix[x][i] = 0;
+                    continue;
                 }
-                else { break; }
+                break;
             }
         }
     }
 }
 
-void Matrix::moveDown()
+void game_matrix::transform_down()
 {
     for (int x = 0; x < MATRIX_LARGE; x++)
     {
         for (int y = MATRIX_LARGE - 2; y >= 0; y--)
         {
-            for (int i = y; i < MATRIX_LARGE - 1 && numberMatrix[x][i] != 0; i++)
+            for (int i = y; i < MATRIX_LARGE - 1 && number_matrix[x][i] != 0; i++)
             {
-                if (numberMatrix[x][i + 1] == 0)
+                if (number_matrix[x][i + 1] == 0)
                 {
-                    numberMatrix[x][i + 1] = numberMatrix[x][i];
-                    numberMatrix[x][i] = 0;
+                    number_matrix[x][i + 1] = number_matrix[x][i];
+                    number_matrix[x][i] = 0;
+                    continue;
                 }
-                else if (numberMatrix[x][i] == numberMatrix[x][i + 1])
+                if (number_matrix[x][i] == number_matrix[x][i + 1])
                 {
-                    numberMatrix[x][i + 1] *= 2;
-                    numberMatrix[x][i] = 0;
+                    number_matrix[x][i + 1] *= 2;
+                    number_matrix[x][i] = 0;
+                    continue;
                 }
-                else { break; }
+                break;
             }
         }
     }
 }
 
-void Matrix::moveLeft()
+void game_matrix::transform_left()
 {
     for (int y = 0; y < MATRIX_LARGE; y++)
     {
         for (int x = 1; x < MATRIX_LARGE; x++)
         {
-            for (int i = x; i > 0 && numberMatrix[i][y] != 0; i--)
+            for (int i = x; i > 0 && number_matrix[i][y] != 0; i--)
             {
-                if (numberMatrix[i - 1][y] == 0)
+                if (number_matrix[i - 1][y] == 0)
                 {
-                    numberMatrix[i - 1][y] = numberMatrix[i][y];
-                    numberMatrix[i][y] = 0;
+                    number_matrix[i - 1][y] = number_matrix[i][y];
+                    number_matrix[i][y] = 0;
+                    continue;
                 }
-                else if (numberMatrix[i][y] == numberMatrix[i - 1][y])
+                if (number_matrix[i][y] == number_matrix[i - 1][y])
                 {
-                    numberMatrix[i - 1][y] *= 2;
-                    numberMatrix[i][y] = 0;
+                    number_matrix[i - 1][y] *= 2;
+                    number_matrix[i][y] = 0;
+                    continue;
                 }
-                else { break; }
+                break;
             }
         }
     }
 }
 
-void Matrix::moveRight()
+void game_matrix::transform_right()
 {
     for (int y = 0; y < MATRIX_LARGE; y++)
     {
         for (int x = MATRIX_LARGE - 2; x >= 0; x--)
         {
-            for (int i = x; i < MATRIX_LARGE - 1 && numberMatrix[i][y] != 0; i++)
+            for (int i = x; i < MATRIX_LARGE - 1 && number_matrix[i][y] != 0; i++)
             {
-                if (numberMatrix[i + 1][y] == 0)
+                if (number_matrix[i + 1][y] == 0)
                 {
-                    numberMatrix[i + 1][y] = numberMatrix[i][y];
-                    numberMatrix[i][y] = 0;
+                    number_matrix[i + 1][y] = number_matrix[i][y];
+                    number_matrix[i][y] = 0;
+                    continue;
                 }
-                else if (numberMatrix[i][y] == numberMatrix[i + 1][y])
+                if (number_matrix[i][y] == number_matrix[i + 1][y])
                 {
-                    numberMatrix[i + 1][y] *= 2;
-                    numberMatrix[i][y] = 0;
+                    number_matrix[i + 1][y] *= 2;
+                    number_matrix[i][y] = 0;
+                    continue;
                 }
-                else { break; }
+                break;
             }
         }
     }
 }
 
-bool Matrix::isSuccess()
+bool game_matrix::is_success()
 {
     for (int x = 0; x < MATRIX_LARGE; x++)
     {
         for (int y = 0; y < MATRIX_LARGE; y++)
         {
-            if (numberMatrix[x][y] == 2048)
+            if (number_matrix[x][y] == 2048)
             {
                 return true;
             }
@@ -151,18 +158,24 @@ bool Matrix::isSuccess()
     return false;
 }
 
-bool Matrix::isFailure()
+bool game_matrix::is_failure()
 {
     for (int x = 0; x < MATRIX_LARGE; x++)
     {
         for (int y = 0; y < MATRIX_LARGE; y++)
         {
-            if (numberMatrix[x][y] == 0)
+            if (number_matrix[x][y] == 0)
             {
                 return false;
             }
-            if (y + 1 < MATRIX_LARGE && numberMatrix[x][y] == numberMatrix[x][y + 1]) { return false; }
-            if (x + 1 < MATRIX_LARGE && numberMatrix[x][y] == numberMatrix[x + 1][y]) { return false; }
+            if (y + 1 < MATRIX_LARGE && number_matrix[x][y] == number_matrix[x][y + 1])
+            {
+                return false;
+            }
+            if (x + 1 < MATRIX_LARGE && number_matrix[x][y] == number_matrix[x + 1][y])
+            {
+                return false;
+            }
         }
     }
     return true;
